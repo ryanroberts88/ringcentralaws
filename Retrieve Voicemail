@@ -37,7 +37,6 @@ else {
 /*
  * Retrieve list of voicemails from RingCentral
  * 
- * To get activities data for building the widget.
  * @output: 'voicemail_ID' variable, with the specific ID
  * of the voicemail to retrieve.
  */
