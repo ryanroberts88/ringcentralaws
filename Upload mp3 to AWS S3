@@ -1,4 +1,7 @@
 var httpStatus = 200;
+
+// Call the AWS S3 FileUpload Rest Message to upload the binary
+// mp3 to an S3 bucket.
 try {
     var r = new sn_ws.RESTMessageV2('AWS S3', 'FileUpload');
     r.setStringParameterNoEscape('filename', workflow.scratchpad.voicemail_ID + '.mp3');
