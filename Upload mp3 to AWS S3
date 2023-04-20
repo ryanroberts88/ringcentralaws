@@ -2,6 +2,7 @@ var httpStatus = 200;
 try {
     var r = new sn_ws.RESTMessageV2('AWS S3', 'FileUpload');
     r.setStringParameterNoEscape('filename', workflow.scratchpad.voicemail_ID + '.mp3');
+	r.setRequestBody(workflow.scratchpad.vmBinary);
     var response = r.execute();
     var responseBody = response.getBody();
     //httpStatus = response.getStatusCode();
