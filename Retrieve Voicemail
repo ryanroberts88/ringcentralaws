@@ -15,13 +15,12 @@ var message;
 // 'Faking' the RingCentral Response - this format is from the RingCentral
 // documentation and would come through like this.
 var authResponse = workflow.scratchpad.authResponse;
-try { 
+try {
 	r = new sn_ws.RESTMessageV2('RingCentral', 'Auth Token');
 	response = r.execute();
 	responseBody = response.getBody();
 	//httpStatus = response.getStatusCode();
-}
-catch(ex) {
+} catch (ex) {
 	message = ex.message;
 	activity.output = 'error';
 	current.work_notes = message;
@@ -29,8 +28,7 @@ catch(ex) {
 if (httpStatus == 200) {
 	//var token = responseBody.access_token;
 	var token = authResponse.access_token;
-}
-else {
+} else {
 	activity.output = 'error';
 }
 
@@ -43,28 +41,27 @@ else {
 
 // Simulated response from RingCentral:
 var listMessagesResponse = workflow.scratchpad.listMessagesResponse;
-try { 
-	r = new sn_ws.RESTMessageV2('RingCentral', 'ListMessages');
-	r.setStringParameterNoEscape('acount_id', '790154005');
-	r.setStringParameterNoEscape('extension_id', '101');
-	response = r.execute();
-	responseBody = response.getBody();
-	//httpStatus = response.getStatusCode();
+if (token) {
+	try {
+		r = new sn_ws.RESTMessageV2('RingCentral', 'ListMessages');
+		r.setStringParameterNoEscape('acount_id', '790154005');
+		r.setStringParameterNoEscape('extension_id', '101');
+		response = r.execute();
+		responseBody = response.getBody();
+		//httpStatus = response.getStatusCode();
+	} catch (ex) {
+		message = ex.message;
+		activity.output = 'error';
+		current.work_notes = message;
+	}
+	if (httpStatus == 200) {
+		//var voicemailID = responseBody.records[0].id;
+		var voicemail_ID = listMessagesResponse.records[0].id;
+		workflow.scratchpad.voicemail_ID = voicemail_ID;
+	} else {
+		activity.output = 'error';
+	}
 }
-catch(ex) {
-	message = ex.message;
-	activity.output = 'error';
-	current.work_notes = message;
-}
-if (httpStatus == 200) {
-	//var voicemailID = responseBody.records[0].id;
-	var voicemail_ID = listMessagesResponse.records[0].id;
-	workflow.scratchpad.voicemail_ID = voicemail_ID;
-}
-else {
-	activity.output = 'error';
-}
-
 
 /*
  * Get binary Message Content from RingCentral
@@ -75,26 +72,26 @@ else {
 
 // Simulated response from RingCentral:
 var messageContent = workflow.scratchpad.messageContent;
-try { 
-	r = new sn_ws.RESTMessageV2('RingCentral', 'Get Message Content');
-	r.setStringParameterNoEscape('accountId', '790154005');
-	r.setStringParameterNoEscape('attachmentId', voicemail_ID);
-	r.setStringParameterNoEscape('messageId', voicemail_ID);
-	response = r.execute();
-	responseBody = response.getBody();
-	//httpStatus = response.getStatusCode();
-}
-catch(ex) {
-	message = ex.message;
-	activity.output = 'error';
-	current.work_notes = message;
-}
-if (httpStatus == 200) {
-	//var vmBinary = responseBody;
-	var vmBinary = messageContent;
-	activity.output = 'success';
-	workflow.scratchpad.vmBinary = vmBinary;
-}
-else {
-	activity.output = 'error';
+if (voicemail_ID) {
+	try {
+		r = new sn_ws.RESTMessageV2('RingCentral', 'Get Message Content');
+		r.setStringParameterNoEscape('accountId', '790154005');
+		r.setStringParameterNoEscape('attachmentId', voicemail_ID);
+		r.setStringParameterNoEscape('messageId', voicemail_ID);
+		response = r.execute();
+		responseBody = response.getBody();
+		//httpStatus = response.getStatusCode();
+	} catch (ex) {
+		message = ex.message;
+		activity.output = 'error';
+		current.work_notes = message;
+	}
+	if (httpStatus == 200) {
+		//var vmBinary = responseBody;
+		var vmBinary = messageContent;
+		activity.output = 'success';
+		workflow.scratchpad.vmBinary = vmBinary;
+	} else {
+		activity.output = 'error';
+	}
 }
