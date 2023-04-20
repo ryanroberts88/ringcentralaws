@@ -1,0 +1,18 @@
+var httpStatus = 200;
+try {
+    var r = new sn_ws.RESTMessageV2('AWS S3', 'FileUpload');
+    r.setStringParameterNoEscape('filename', workflow.scratchpad.voicemail_ID + '.mp3');
+    var response = r.execute();
+    var responseBody = response.getBody();
+    //httpStatus = response.getStatusCode();
+} catch (ex) {
+    message = ex.message;
+    activity.output = 'error';
+    current.work_notes = message;
+}
+// If AWS returns a 200 HTTP response, file upload was successful
+if (httpStatus == 200) {
+	activity.result = 'success';
+} else {
+    activity.output = 'error';
+}
