@@ -1,0 +1,65 @@
+// Simulated auth token JSON response
+workflow.scratchpad.authResponse = {
+   "access_token" : "U1BCMDFUMDRKV1MwMXxzLFSvXdw5PHMsVLEn_MrtcyxUsw",
+   "token_type" : "bearer",
+   "expires_in" : 7199,
+   "refresh_token" : "U1BCMDFUMDRKV1MwMXxzLFL4ec6A0XMsUv9wLriecyxS_w",
+   "refresh_token_expires_in" : 604799,
+   "scope" : "AccountInfo CallLog ExtensionInfo Messages SMS",
+   "owner_id" : "256440016"
+};
+
+// Simulated list of messages JSON response
+workflow.scratchpad.listMessagesResponse = {
+  "uri" : "https://platform.devtest.ringcentral.com/restapi/v1.0/account/178009004/extension/178009004/message-store?messageType=SMS&availability=Alive&dateFrom=2019-05-21T17:54:00.000Z&page=1&perPage=100",
+  "records" : [ {
+    "uri" : "https://platform.devtest.ringcentral.com/restapi/v1.0/account/178009004/extension/178009004/message-store/6424569004",
+    "id" : 6424569004,
+    "to" : [ {
+      "phoneNumber" : "+13125559821"
+    } ],
+    "from" : {
+      "phoneNumber" : "+16505558379",
+      "location" : "San Mateo, CA"
+    },
+    "type" : "SMS",
+    "creationTime" : "2019-05-22T17:07:28.000Z",
+    "readStatus" : "Unread",
+    "priority" : "Normal",
+    "attachments" : [ {
+      "id" : 6424569004,
+      "uri" : "https://platform.devtest.ringcentral.com/restapi/v1.0/account/178009004/extension/178009004/message-store/6424569004/content/6424569004",
+      "type" : "Text",
+      "contentType" : "text/plain"
+    } ],
+    "direction" : "Inbound",
+    "availability" : "Alive",
+    "subject" : "Test SMS using a RingCentral Developer account - Hello World",
+    "messageStatus" : "Received",
+    "conversationId" : 8031152018338945839,
+    "conversation" : {
+      "id" : "8031152018338945839",
+      "uri" : "https://platform.devtest.ringcentral.com/restapi/v1.0/conversation/8031152018338945839"
+    },
+    "lastModifiedTime" : "2019-05-22T17:07:28.091Z"
+  } ],
+  "paging" : {
+    "page" : 1,
+    "totalPages" : 1,
+    "perPage" : 100,
+    "totalElements" : 1,
+    "pageStart" : 0,
+    "pageEnd" : 0
+  },
+  "navigation" : {
+    "firstPage" : {
+      "uri" : "https://platform.devtest.ringcentral.com/restapi/v1.0/account/178009004/extension/178009004/message-store?readStatus=Unread&availability=Alive&dateFrom=2019-05-21T17:54:00.000Z&page=1&perPage=100"
+    },
+    "lastPage" : {
+      "uri" : "https://platform.devtest.ringcentral.com/restapi/v1.0/account/178009004/extension/178009004/message-store?readStatus=Unread&availability=Alive&dateFrom=2019-05-21T17:54:00.000Z&page=1&perPage=100"
+    }
+  }
+};
+
+// Simulated Message Content response
+workflow.scratchpad.messageContent = 'binaryData';
